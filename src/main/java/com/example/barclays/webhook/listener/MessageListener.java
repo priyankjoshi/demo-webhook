@@ -45,6 +45,8 @@ public class MessageListener {
 	@Async
 	@EventListener
 	public void messageRecievedListener(MessageRecievedEvent messageRecievedListener) {
+		
+		System.out.println("Currently Executing thread name -"+Thread.currentThread().getName());
 		Message message = messageRecievedListener.getMessage();
 		logger.debug("Listener Event for the message {}",message.getId());
 		
@@ -52,7 +54,6 @@ public class MessageListener {
 		
 		
 	}
-	
 	/**
 	 * 
    // 0 0 * * * *" = the top of every hour of every day.

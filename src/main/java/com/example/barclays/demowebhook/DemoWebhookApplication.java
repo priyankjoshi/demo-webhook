@@ -20,26 +20,29 @@ import org.springframework.web.servlet.config.annotation.EnableWebMvc;
 @EnableTransactionManagement
 @EnableAsync
 @EnableScheduling
-@Configuration
-@EnableWebMvc
 @ComponentScan(basePackages= {"com.example.barclays.webhook.*"})
 @EntityScan("com.example.barclays.webhook.*")
-public class DemoWebhookApplication{
+public class DemoWebhookApplication extends AsyncConfigurerSupport{
 
 	public static void main(String[] args) {
 		SpringApplication.run(DemoWebhookApplication.class, args);
 	}
 	
-	/*@Override
+	
+	/*The @EnableAsync annotation switches on Spring’s ability to run @Async methods in a background thread pool
+	 *  This class also customizes the used Executor
+	 * */
+	
+	@Override
 	public Executor getAsyncExecutor() {
 		ThreadPoolTaskExecutor executor = new ThreadPoolTaskExecutor();
 		
-		executor.setCorePoolSize(5);
-		executor.setMaxPoolSize(5);
+		executor.setCorePoolSize(2);
+		executor.setMaxPoolSize(2);
 		executor.setQueueCapacity(100);
         executor.setThreadNamePrefix("MsgReqService-");
         executor.initialize();
         
         return executor;
-	}*/
+	}
 }
